@@ -1,0 +1,61 @@
+<mujoco>
+  <option gravity="0 0 -9.81" timestep="0.002"/>
+  
+  <worldbody>
+    <!-- Ground plane -->
+    <geom name="ground" type="plane" size="20 20 0.1" rgba="0.8 0.8 0.8 1"/>
+    
+    <!-- Room boundaries (walls and ceiling) -->
+    <geom name="wall_north" type="box" size="5 0.1 2.5" pos="0 5 2.5" rgba="1 0.8 0.8 1"/>
+    <geom name="wall_south" type="box" size="5 0.1 2.5" pos="0 -5 2.5" rgba="1 0.8 0.8 1"/>
+    <geom name="wall_east" type="box" size="0.1 5 2.5" pos="5 0 2.5" rgba="0.8 1 0.8 1"/>
+    <geom name="wall_west" type="box" size="0.1 5 2.5" pos="-5 0 2.5" rgba="0.8 1 0.8 1"/>
+    <geom name="ceiling" type="box" size="5 5 0.05" pos="0 0 5" rgba="0.6 0.6 1 0.3"/>
+    
+    <!-- Obstacles with collision -->
+    <geom name="obstacle_tower" type="box" size="0.5 0.5 1.0" pos="2 2 1.0" rgba="1 0 0 1"/>
+    <geom name="obstacle_box1" type="box" size="0.4 0.4 0.75" pos="-2 1.5 0.75" rgba="0 0 1 1"/>
+    <geom name="obstacle_box2" type="box" size="0.6 0.3 0.5" pos="1 -2.5 0.5" rgba="1 1 0 1"/>
+    <geom name="obstacle_sphere1" type="sphere" size="0.4" pos="-1.5 -1.5 2.5" rgba="1 0 1 1"/>
+    <geom name="obstacle_sphere2" type="sphere" size="0.3" pos="3 -1 3.5" rgba="0 1 1 1"/>
+    <geom name="obstacle_pillar" type="box" size="0.2 0.2 2.0" pos="-3 2 2.0" rgba="0.55 0.27 0.07 1"/>
+    
+    <!-- Arch obstacles -->
+    <geom name="obstacle_arch1" type="box" size="0.15 1.0 0.15" pos="0 3 3.5" rgba="0.5 0.5 0.5 1"/>
+    <geom name="obstacle_arch2" type="box" size="0.15 1.0 0.15" pos="0 1 3.5" rgba="0.5 0.5 0.5 1"/>
+    
+    <!-- Drone body -->
+    <body name="drone" pos="0 0 1">
+      <freejoint/>
+      
+      <!-- Main body (central box) -->
+      <geom name="body" type="box" size="0.1 0.1 0.03" rgba="0.2 0.2 0.2 1" mass="0.5"/>
+      
+      <!-- Four arms -->
+      <geom name="arm1" type="box" size="0.15 0.02 0.01" pos="0.15 0 0" rgba="0.3 0.3 0.3 1" mass="0.05"/>
+      <geom name="arm2" type="box" size="0.15 0.02 0.01" pos="-0.15 0 0" rgba="0.3 0.3 0.3 1" mass="0.05"/>
+      <geom name="arm3" type="box" size="0.02 0.15 0.01" pos="0 0.15 0" rgba="0.3 0.3 0.3 1" mass="0.05"/>
+      <geom name="arm4" type="box" size="0.02 0.15 0.01" pos="0 -0.15 0" rgba="0.3 0.3 0.3 1" mass="0.05"/>
+      
+      <!-- Four rotors (visual only, smaller to reduce collision) -->
+      <geom name="rotor1" type="cylinder" size="0.06 0.01" pos="0.25 0 0.02" rgba="1 0 0 0.7" mass="0.02"/>
+      <geom name="rotor2" type="cylinder" size="0.06 0.01" pos="-0.25 0 0.02" rgba="0 1 0 0.7" mass="0.02"/>
+      <geom name="rotor3" type="cylinder" size="0.06 0.01" pos="0 0.25 0.02" rgba="0 0 1 0.7" mass="0.02"/>
+      <geom name="rotor4" type="cylinder" size="0.06 0.01" pos="0 -0.25 0.02" rgba="1 1 0 0.7" mass="0.02"/>
+      
+      <!-- Sites for applying thrust forces -->
+      <site name="thrust1" pos="0.25 0 0" size="0.01"/>
+      <site name="thrust2" pos="-0.25 0 0" size="0.01"/>
+      <site name="thrust3" pos="0 0.25 0" size="0.01"/>
+      <site name="thrust4" pos="0 -0.25 0" size="0.01"/>
+    </body>
+  </worldbody>
+  
+  <actuator>
+    <!-- Four thrust forces applied at each rotor location -->
+    <motor name="motor1" gear="0 0 1" site="thrust1" ctrllimited="true" ctrlrange="0 5"/>
+    <motor name="motor2" gear="0 0 1" site="thrust2" ctrllimited="true" ctrlrange="0 5"/>
+    <motor name="motor3" gear="0 0 1" site="thrust3" ctrllimited="true" ctrlrange="0 5"/>
+    <motor name="motor4" gear="0 0 1" site="thrust4" ctrllimited="true" ctrlrange="0 5"/>
+  </actuator>
+</mujoco>
