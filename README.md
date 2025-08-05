@@ -34,15 +34,10 @@ Advanced drone simulation featuring realistic flight dynamics, collision detecti
 
 ## Files
 
-### Core Simulation
+### Core Simulation (3 files only)
 - `drone_collision_course.py` - Main simulation with all features
-- `flight_controller.py` - PID-based flight controller implementation
+- `flight_controller.py` - PID-based flight controller implementation  
 - `drone_with_obstacles.xml` - MuJoCo world with physics obstacles
-
-### Additional Examples
-- `drone_simple_with_pid.py` - Basic PID flight controller demo
-- `drone_simple.xml` - Simple drone model without obstacles
-- `mujoco_drone_pid.py` - Original realistic flight controller
 
 ## Installation
 
@@ -59,7 +54,7 @@ pip install mujoco viser numpy
 
 ## Usage
 
-1. **Run Main Simulation:**
+1. **Run Simulation:**
 ```bash
 source venv/bin/activate
 python drone_collision_course.py
