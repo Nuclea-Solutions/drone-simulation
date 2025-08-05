@@ -49,7 +49,7 @@ source venv/bin/activate
 
 2. Install dependencies:
 ```bash
-pip install mujoco viser numpy
+pip install -r requirements.txt
 ```
 
 ## Usage
